@@ -15,7 +15,20 @@ public class AppTest {
 
     App.main(new String[]{});
 
-    assertEquals("Usage: java -jar indexio.jar <file1> <file2> ...\n", errContent.toString());
+    assertEquals("Usage: java -jar indexia.jar <file1> <file2> ...\n", errContent.toString());
+  }
+
+  @Test
+  void testMissingFile() {
+
+    ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    System.setErr(new PrintStream(errContent));
+    String[] args = new String[]{"file1.txt"};
+
+    App.main(args);
+    final var expected = "skipping missing file: "+args[0].trim();
+    final var actual = errContent.toString().trim();
+    assertEquals(expected, actual);
   }
 
 }
