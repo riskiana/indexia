@@ -1,0 +1,11 @@
+“Leadership is where you have, not necessarily a large organization, but increasing scope and increasing impact, while bringing lots of people along with you.”
+
+In this milestone episode of the podcast, James Stanier returns for the third time to discuss his latest book, “Become a Great Engineering Leader.” We explore the role of an engineering leader and delve deep into the nuances of engineering leadership.
+
+James explains the difference between an engineering leader and an engineering manager through the lens of the three levels of warfare: strategy, operational, and tactical. We then discuss the importance of organizational chart design and some best practices, including Conway’s law and how to avoid politics.
+
+James also talks about the importance of time management, always having a long-term view of your work (long-termism), and the critical role of writing in leadership. We discuss important approaches such as one-way vs. two-way doors and balancing between writing vs. bias for action.
+
+Finally, James explains the importance of strategic thinking, why a strategy is not necessarily a plan, and how an engineering leader can communicate their strategy effectively. He also provides practical tips for upcoming engineering leaders and discusses how we should all navigate a career in technology.  
+
+

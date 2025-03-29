@@ -1,11 +1,22 @@
 package org.riskiana;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import org.riskiana.rules.UppercaseWordRule;
+import org.riskiana.rules.WordLengthRule;
 
+@Slf4j(topic = Constants.LOGGER_NAME)
 public class App {
+  static final List<Rule> rules = Arrays.asList(
+      new WordLengthRule(),
+      new UppercaseWordRule());
 
   public static void main(String[] args) {
     if (args.length == 0) {
@@ -20,15 +31,28 @@ public class App {
     }
   }
 
-  private static void processFile(String[] args) {
+  public static void processFile(String[] args) {
     Arrays.stream(args).forEach(fileName -> {
       Path path = Paths.get(fileName);
       if (!path.toFile().exists()) {
         System.err.println("skipping missing file: " + fileName);
         return;
       }
-
-      System.out.println("Processing file: " + fileName);
+      log.info("processing file: {}", fileName);
+      RuleProcessor processor = new RuleProcessor(rules);
+      processor.execute(getContents(fileName));
     });
+  }
+
+  public static List<String> getContents(String fileName) {
+    try {
+      return Files.lines(Paths.get(fileName))
+          .flatMap(line -> Arrays.stream(line.split("\\W+")))
+          .filter(word -> !word.isEmpty())
+          .collect(Collectors.toList());
+    } catch (IOException e) {
+      log.error("Error reading file: {} - {}", fileName, e.getMessage());
+      return List.of();
+    }
   }
 }
