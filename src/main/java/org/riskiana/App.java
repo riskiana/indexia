@@ -48,7 +48,8 @@ public class App {
     try {
       return Files.lines(Paths.get(fileName))
           .flatMap(line -> Arrays.stream(line.split("\\W+")))
-          .filter(word -> !word.isEmpty())
+          .map(String::trim) // Remove whitespace
+          .filter(word -> !word.isEmpty()) // Remove empty strings
           .collect(Collectors.toList());
     } catch (IOException e) {
       log.error("Error reading file: {} - {}", fileName, e.getMessage());

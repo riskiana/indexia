@@ -13,8 +13,6 @@ public class UppercaseWordRule implements Rule {
   public void apply(List<String> words) {
     log.debug("Applying UppercaseWordRule");
     words.stream()
-        .map(String::trim) // Remove whitespace
-        .filter(word -> !word.isEmpty()) // Ignore empty strings
         .forEach(word -> {
           if (Character.isUpperCase(word.charAt(0))) {
             count++;

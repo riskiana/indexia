@@ -24,7 +24,7 @@ public class RuleProcessorTest {
 
   @Test
   void processFileTest() {
-    App.processFile(new String[]{file1});
+    App.processFile(new String[]{file1, file2});
   }
 
   @Test
