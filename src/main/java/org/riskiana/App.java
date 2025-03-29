@@ -33,14 +33,15 @@ public class App {
 
   public static void processFile(String[] args) {
     Arrays.stream(args).forEach(fileName -> {
-      Path path = Paths.get(fileName);
-      if (!path.toFile().exists()) {
-        System.err.println("skipping missing file: " + fileName);
-        return;
+      try{
+        Path path = Paths.get(fileName);
+        validateFile(path);
+        log.info("Processing file: {}", fileName);
+        RuleProcessor processor = new RuleProcessor(rules);
+        processor.execute(getContents(fileName));
+      } catch (Exception e) {
+        log.error("Error processing file: {} - {}", fileName, e.getMessage());
       }
-      log.info("processing file: {}", fileName);
-      RuleProcessor processor = new RuleProcessor(rules);
-      processor.execute(getContents(fileName));
     });
   }
 
@@ -54,6 +55,18 @@ public class App {
     } catch (IOException e) {
       log.error("Error reading file: {} - {}", fileName, e.getMessage());
       return List.of();
+    }
+  }
+
+  public static void validateFile(Path path)  {
+    if (!path.toFile().exists()) {
+      throw new IllegalArgumentException("File does not exist");
+    }
+    if (!path.toFile().canRead()) {
+      throw new IllegalArgumentException("File is not readable");
+    }
+    if(path.toString().endsWith(".pdf")) {
+     throw new IllegalArgumentException("PDF files are not supported");
     }
   }
 }

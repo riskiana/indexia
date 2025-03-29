@@ -1,12 +1,15 @@
 package org.riskiana;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
+
   @Test
   void testMainWithNoArguments() {
 
@@ -20,15 +23,21 @@ public class AppTest {
 
   @Test
   void testMissingFile() {
+    Path path = Path.of("src/test/resources/missing.txt");
+    Exception exception =
+        assertThrows(IllegalArgumentException.class, () -> App.validateFile(path));
+    assertEquals("File does not exist", exception.getMessage());
 
-    ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-    System.setErr(new PrintStream(errContent));
-    String[] args = new String[]{"file1.txt"};
-
-    App.main(args);
-    final var expected = "skipping missing file: "+args[0].trim();
-    final var actual = errContent.toString().trim();
-    assertEquals(expected, actual);
   }
+
+  @Test
+  void testPdfFile() {
+    Path path = Path.of("src/test/resources/file3.pdf");
+    Exception exception =
+        assertThrows(IllegalArgumentException.class, () -> App.validateFile(path));
+    assertEquals("PDF files are not supported", exception.getMessage());
+
+  }
+
 
 }
