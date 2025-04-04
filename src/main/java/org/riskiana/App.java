@@ -20,7 +20,7 @@ public class App {
 
   public static void main(String[] args) {
     if (args.length == 0) {
-      System.err.println("Usage: java -jar indexia.jar <file1> <file2> ...");
+      System.err.print("Usage: java -jar indexia.jar <file1> <file2> ...");
       return;
     }
     try {

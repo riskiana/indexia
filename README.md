@@ -10,6 +10,9 @@ Indexia is a lightweight Java application that processes text files and applies 
 - Simple command-line interface
 - Supports txt, html, and xml files
 
+## Build
+./gradlew build
+
 ## 🚀 Usage
 java -jar indexia.jar file1.txt file2.html
 

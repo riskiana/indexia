@@ -18,7 +18,7 @@ public class AppTest {
 
     App.main(new String[]{});
 
-    assertEquals("Usage: java -jar indexia.jar <file1> <file2> ...\n", errContent.toString());
+    assertEquals("Usage: java -jar indexia.jar <file1> <file2> ...", errContent.toString());
   }
 
   @Test
